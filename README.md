@@ -7,3 +7,5 @@ Features:
 After clone this project, please run
 
 ```npm install```
+
+Please contact me at winaf.work@gmail.com for database.sql
