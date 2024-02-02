@@ -96,4 +96,81 @@ router.post('/store', function (req, res, next) {
     }
 })
 
+router.get('/edit/:idKamar', function (req, res, next) {
+    const idKamar = req.params.idKamar;
+
+    connection.query('SELECT * FROM kamar JOIN jenis_kamar ON kamar.id_jenis_kamar = jenis_kamar.id_jenis_kamar WHERE kamar.id_kamar = ?', [idKamar], function(err, rows, fields) {
+        if(err) throw err
+         
+        // if user not found
+        if (rows.length <= 0) {
+            req.flash('error', 'Data Post Dengan ID ' + idKamar + " Tidak Ditemukan")
+            res.redirect('/kamar')
+        }
+        // if room found
+        else {
+            // Retrieve jenisKamar data from the database
+            connection.query('SELECT * FROM jenis_kamar', function(err, jenisKamar, fields) {
+                if(err) throw err;
+
+                res.render('kamar/edit', {
+                    idKamar: rows[0].id_kamar,
+                    jenisKamar: jenisKamar,
+                    statusKamar: rows[0].status_kamar,
+                    selectedJenisKamar: String(rows[0].id_jenis_kamar)
+                });
+            });
+        }
+    })
+})
+
+router.post('/update/:idKamar', function(req, res, next) {
+    let idJenisKamar = req.body.idJenisKamar;
+    let statusKamar = req.body.statusKamar;
+    let errors = false;
+
+    if(idJenisKamar.length === 0) {
+        errors = true;
+
+        req.flash('error', "Silahkan Pilih Jenis Kamar");
+        res.render('kamar/edit', {
+            idKamar: req.params.idKamar,
+            idJenisKamar: idJenisKamar,
+            statusKamar: statusKamar
+        })
+    }
+
+    if(statusKamar.length === 0) {
+        errors = true;
+
+        req.flash('error', "Silahkan Pilih Jenis Kamar");
+        res.render('kamar/edit', {
+            idKamar: req.params.idKamar,
+            idJenisKamar: idJenisKamar,
+            statusKamar: statusKamar
+        })
+    }
+
+    if(!errors){
+        let formData = {
+            id_jenis_kamar: idJenisKamar,
+            status_kamar: statusKamar
+        }
+
+        connection.query('UPDATE kamar SET ? WHERE id_kamar = ?', [formData, req.params.idKamar], function(err, result) {
+            if(err) {
+                req.flash('error', err)
+                res.render('kamar/edit', {
+                    idKamar: req.params.idKamar,
+                    idJenisKamar: idJenisKamar,
+                    statusKamar: statusKamar
+                })
+            } else {
+                req.flash('success', 'Data Berhasil Diupdate!');
+                res.redirect('/kamar');
+            }
+        })
+    }
+})
+
 module.exports = router;

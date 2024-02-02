@@ -53,9 +53,26 @@
                                     <th scope="row" class="text-center"><%= (i+1) %></th>
                                     <td><%= data[i].id_kamar%></td>
                                     <td><%= data[i].tipe_kamar%></td>
-                                    <td><%= data[i].status_kamar%></td>
+                                    <td><% 
+                                        switch(data[i].status_kamar) {
+                                            case 'READY':
+                                                %> Tersedia <% 
+                                                break;
+                                            case 'NOT_READY':
+                                                %> Terisi <% 
+                                                break;
+                                            case 'ON_CLEANING':
+                                                %> Sedang Dibersihkan <% 
+                                                break;
+                                            case 'UNAVAILABLE':
+                                                %> Tidak Tersedia <% 
+                                                break;
+                                            default:
+                                                %> Status Tidak Dikenal <% 
+                                        }
+                                        %></td>
                                     <td class="text-center">
-                                        <a href="/jenisKamar/edit/<%=data[i].id_jenis_kamar%>"
+                                        <a href="/kamar/edit/<%=data[i].id_kamar%>"
                                             class="btn btn-sm btn-primary">EDIT</a>
                                         <a onclick="return alert('Are You sure?')"
                                             href="/jenisKamar/delete/<%=data[i].id_jenis_kamar%>"

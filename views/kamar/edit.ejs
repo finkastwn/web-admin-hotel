@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Hotel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+
+<body style="background: lightgray">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <% if (messages.error) { %>
+                <div class="alert alert-danger" role="alert"><%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <div class="alert alert-info mt-3" role="alert">
+                            <strong>Informasi:</strong>
+                            <p>Awali nomor kamar dengan lantai</p>
+                            <ul>
+                                <li>Lantai 1 berisi 20 kamar standard dan 5 kamar president suite</li>
+                                <li>Lantai 2 berisi 5 kamar standard dan 10 kamar deluxe</li>
+                                <li>Lantai 3 berisi 15 kamar deluxe</li>
+                                <li>Lantai 4 berisi 10 kamar suite</li>
+                                <li>Lantai 5 berisi 10 kamar suite</li>
+                                <li>Lantai 6 berisi 5 kamar suite dan 5 kamar president suite</li>
+                                <li>Lantai 7 berisi 8 kamar president suite</li>
+                                <li>Lantai 8 berisi 7 kamar president suite</li>
+                            </ul>
+                        </div>
+                        <form action="/kamar/update/<%= idKamar %>" method="post">
+                            <div class="form-group">
+                                <label>Nomor Kamar</label>
+                                <input type="text" class="form-control" name="idKamar" value="<%= idKamar %>"
+                                    placeholder="Masukkan Nomor Kamar" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kamar</label>
+                                <br>
+                                <select name="idJenisKamar" id="idJenisKamar">
+                                    <% for (var i = 0; i < jenisKamar.length; i++) { %>
+                                    <option value="<%= jenisKamar[i].id_jenis_kamar %>"
+                                        <%= (jenisKamar[i].id_jenis_kamar == selectedJenisKamar) ? 'selected' : '' %>>
+                                        <%= jenisKamar[i].tipe_kamar %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Kamar</label>
+                                <br>
+                                <select name="statusKamar" id="statusKamar">
+                                    <option value="READY" <%= (statusKamar === 'READY') ? 'selected' : '' %>>Tersedia
+                                    </option>
+                                    <option value="NOT_READY" <%= (statusKamar === 'NOT_READY') ? 'selected' : '' %>>
+                                        Terisi
+                                    </option>
+                                    <option value="ON_CLEANING"
+                                        <%= (statusKamar === 'ON_CLEANING') ? 'selected' : '' %>>
+                                        Sedang Dibersihkan</option>
+                                    <option value="UNAVAILABLE"
+                                        <%= (statusKamar === 'UNAVAILABLE') ? 'selected' : '' %>>
+                                        Tidak Tersedia</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">UPDATE</button>
+                            <a href="/kamar" class="btn btn-secondary">BATAL</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+
+</html>
