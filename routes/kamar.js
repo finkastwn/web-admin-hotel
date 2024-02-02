@@ -173,4 +173,18 @@ router.post('/update/:idKamar', function(req, res, next) {
     }
 })
 
+router.get('/delete/(:idKamar)', function(req, res, next) {
+    let idKamar = req.params.idKamar;
+
+    connection.query('DELETE FROM kamar WHERE id_kamar = ?', [idKamar], function(err, result) {
+        if(err) {
+            req.flash('error', err)
+            res.redirect('/kamar')
+        } else {
+            req.flash('success', 'Data Berhasil Dihapus!');
+            res.redirect('/kamar')
+        }
+    })
+})
+
 module.exports = router;

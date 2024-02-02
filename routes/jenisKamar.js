@@ -193,7 +193,7 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
  * DELETE POST
  */
 router.get('/delete/(:id_jenis_kamar)', function(req, res, next) {
-
+d
     let id_jenis_kamar = req.params.id_jenis_kamar;
      
     connection.query('DELETE FROM jenis_kamar WHERE id_jenis_kamar = ?', [id_jenis_kamar], function(err, result) {

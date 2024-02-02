@@ -74,8 +74,7 @@
                                     <td class="text-center">
                                         <a href="/kamar/edit/<%=data[i].id_kamar%>"
                                             class="btn btn-sm btn-primary">EDIT</a>
-                                        <a onclick="return alert('Are You sure?')"
-                                            href="/jenisKamar/delete/<%=data[i].id_jenis_kamar%>"
+                                        <a href="#" onclick="confirmDelete('<%=data[i].id_kamar%>')"
                                             class="btn btn-sm btn-danger">HAPUS</a>
                                     </td>
                                 </tr>
@@ -97,6 +96,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmDelete(id_kamar) {
+            if (confirm('Apakah Anda yakin ingin menghapus kamar ini?')) {
+                window.location.href = '/kamar/delete/' + id_kamar;
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

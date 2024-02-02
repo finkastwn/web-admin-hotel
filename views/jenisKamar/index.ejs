@@ -47,8 +47,7 @@
                                     <td class="text-center">
                                         <a href="/jenisKamar/edit/<%=data[i].id_jenis_kamar%>"
                                             class="btn btn-sm btn-primary">EDIT</a>
-                                        <a onclick="return alert('Are You sure?')"
-                                            href="/jenisKamar/delete/<%=data[i].id_jenis_kamar%>"
+                                        <a href="#" onclick="confirmDelete('<%data[i].id_jenis_kamar%>')"
                                             class="btn btn-sm btn-danger">HAPUS</a>
                                     </td>
                                 </tr>
@@ -71,6 +70,12 @@
         </div>
     </div>
     <script>
+        function confirmDelete(id_kamar) {
+            if (confirm('Apakah Anda yakin ingin menghapus kamar ini?')) {
+                window.location.href = '/kamar/delete/' + id_kamar;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             // Fungsi untuk memformat nilai harga
             function formatCurrency(number) {
