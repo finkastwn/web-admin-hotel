@@ -85,7 +85,7 @@ router.post('/store', function (req, res, next) {
                  
                 // render to add.ejs
                 res.render('jenisKamar/create', {
-                    tipeKamar: formData.tipeKamar,
+                    tipeKamar: formData.tipe_kamar,
                     harga: formData.harga                    
                 })
             } else {                
