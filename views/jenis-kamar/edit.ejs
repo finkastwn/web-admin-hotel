@@ -20,7 +20,7 @@
                 <% } %>
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="/jenisKamar/update/<%= id_jenis_kamar %>" method="post">
+                        <form action="/jenis-kamar/update/<%= id_jenis_kamar %>" method="post">
                             <div class="form-group">
                                 <label>Tipe Kamar</label>
                                 <input type="text" class="form-control" name="tipe_kamar" value="<%= tipe_kamar %>"
@@ -56,7 +56,7 @@
 
             // Mendapatkan nilai harga dari elemen input
             var harga = parseInt(hargaInput.value.replace(/[^\d]/g,
-            '')); // Menghilangkan pemisah ribuan dan mengonversi ke integer
+                '')); // Menghilangkan pemisah ribuan dan mengonversi ke integer
 
             // Memformat nilai harga dan menetapkannya sebagai nilai input
             hargaInput.value = formatCurrency(harga);

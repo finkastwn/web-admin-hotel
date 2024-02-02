@@ -34,7 +34,7 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="jenisKamar/create" class="btn btn-md btn-success mb-3">TAMBAH JENIS KAMAR</a>
+                        <a href="jenis-kamar/create" class="btn btn-md btn-success mb-3">TAMBAH JENIS KAMAR</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -53,9 +53,9 @@
                                     <td><%= data[i].tipe_kamar%></td>
                                     <td class="formattedHarga"><%= data[i].harga%></td>
                                     <td class="text-center">
-                                        <a href="/jenisKamar/edit/<%=data[i].id_jenis_kamar%>"
+                                        <a href="/jenis-kamar/edit/<%=data[i].id_jenis_kamar%>"
                                             class="btn btn-sm btn-primary">EDIT</a>
-                                        <a href="#" onclick="confirmDelete('<%data[i].id_jenis_kamar%>')"
+                                        <a href="#" onclick="confirmDelete('<%=data[i].id_jenis_kamar%>')"
                                             class="btn btn-sm btn-danger">HAPUS</a>
                                     </td>
                                 </tr>
@@ -78,12 +78,13 @@
         </div>
     </div>
     <script>
-        function confirmDelete(id_kamar) {
-            if (confirm('Apakah Anda yakin ingin menghapus kamar ini?')) {
-                window.location.href = '/kamar/delete/' + id_kamar;
+        function confirmDelete(id_jenis_kamar) {
+            if (confirm('Apakah Anda yakin ingin menghapus jenis kamar ini?')) {
+                window.location.href = '/jenis-kamar/delete/' + id_jenis_kamar;
             }
         }
-
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Fungsi untuk memformat nilai harga
             function formatCurrency(number) {

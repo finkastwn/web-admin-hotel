@@ -13,13 +13,12 @@ router.get('/', function (req, res, next) {
     connection.query('SELECT * FROM jenis_kamar ORDER BY id_jenis_kamar asc', function (err, rows) {
         if (err) {
             req.flash('error', err);
-            res.render('jenisKamar', {
+            res.render('jenis-kamar', {
                 data: ''
             });
         } else {
-            //render ke view jenisKamar index
-            res.render('jenisKamar/index', {
-                data: rows // <-- data jenisKamar
+            res.render('jenis-kamar/index', {
+                data: rows
             });
         }
     });
@@ -29,7 +28,7 @@ router.get('/', function (req, res, next) {
  * CREATE POST
  */
 router.get('/create', function (req, res, next) {
-    res.render('jenisKamar/create', {
+    res.render('jenis-kamar/create', {
         tipeKamar: '',
         harga: ''
     })
@@ -51,7 +50,7 @@ router.post('/store', function (req, res, next) {
         // set flash message
         req.flash('error', "Silahkan Masukkan Tipe Kamar");
         // render to add.ejs with flash message
-        res.render('jenisKamar/create', {
+        res.render('jenis-kamar/create', {
             tipeKamar: tipeKamar,
             harga: harga
         })
@@ -63,7 +62,7 @@ router.post('/store', function (req, res, next) {
         // set flash message
         req.flash('error', "Silahkan Masukkan Konten");
         // render to add.ejs with flash message
-        res.render('jenisKamar/create', {
+        res.render('jenis-kamar/create', {
             tipeKamar: tipeKamar,
             harga: harga
         })
@@ -84,13 +83,13 @@ router.post('/store', function (req, res, next) {
                 req.flash('error', err)
                  
                 // render to add.ejs
-                res.render('jenisKamar/create', {
+                res.render('jenis-kamar/create', {
                     tipeKamar: formData.tipe_kamar,
                     harga: formData.harga                    
                 })
             } else {                
                 req.flash('success', 'Data Berhasil Disimpan!');
-                res.redirect('/jenisKamar');
+                res.redirect('/jenis-kamar');
             }
         })
     }
@@ -110,12 +109,12 @@ router.get('/edit/(:id_jenis_kamar)', function(req, res, next) {
         // if user not found
         if (rows.length <= 0) {
             req.flash('error', 'Data Post Dengan ID ' + id_jenis_kamar + " Tidak Ditemukan")
-            res.redirect('/jenisKamar')
+            res.redirect('/jenis-kamar')
         }
         // if book found
         else {
             // render to edit.ejs
-            res.render('jenisKamar/edit', {
+            res.render('jenis-kamar/edit', {
                 id_jenis_kamar:      rows[0].id_jenis_kamar,
                 tipe_kamar:   rows[0].tipe_kamar,
                 harga: rows[0].harga
@@ -140,7 +139,7 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
         // set flash message
         req.flash('error', "Silahkan Masukkan Tipe Kamar");
         // render to edit.ejs with flash message
-        res.render('jenisKamar/edit', {
+        res.render('jenis-kamar/edit', {
             id_jenis_kamar:         req.params.id_jenis_kamar,
             tipe_kamar:      tipe_kamar,
             harga:    harga
@@ -153,7 +152,7 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
         // set flash message
         req.flash('error', "Silahkan Masukkan Konten");
         // render to edit.ejs with flash message
-        res.render('jenisKamar/edit', {
+        res.render('jenis-kamar/edit', {
             id_jenis_kamar:         req.params.id_jenis_kamar,
             tipe_kamar:      tipe_kamar,
             harga:    harga
@@ -176,14 +175,14 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
                 // set flash message
                 req.flash('error', err)
                 // render to edit.ejs
-                res.render('jenisKamar/edit', {
+                res.render('jenis-kamar/edit', {
                     id_jenis_kamar:     req.params.id_jenis_kamar,
                     tipe_kamar:   formData.tipe_kamar,
                     harga: formData.harga
                 })
             } else {
                 req.flash('success', 'Data Berhasil Diupdate!');
-                res.redirect('/jenisKamar');
+                res.redirect('/jenis-kamar');
             }
         })
     }
@@ -193,7 +192,7 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
  * DELETE POST
  */
 router.get('/delete/(:id_jenis_kamar)', function(req, res, next) {
-d
+
     let id_jenis_kamar = req.params.id_jenis_kamar;
      
     connection.query('DELETE FROM jenis_kamar WHERE id_jenis_kamar = ?', [id_jenis_kamar], function(err, result) {
@@ -202,12 +201,12 @@ d
             // set flash message
             req.flash('error', err)
             // redirect to posts page
-            res.redirect('/jenisKamar')
+            res.redirect('/jenis-kamar')
         } else {
             // set flash message
             req.flash('success', 'Data Berhasil Dihapus!')
             // redirect to posts page
-            res.redirect('/jenisKamar')
+            res.redirect('/jenis-kamar')
         }
     })
 })
