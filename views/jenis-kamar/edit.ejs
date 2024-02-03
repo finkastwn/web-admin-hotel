@@ -6,21 +6,30 @@
         <div class="row">
             <div class="col-md-12">
                 <% if (messages.error) { %>
-                <div class="alert alert-danger" role="alert"><%- messages.error %></div>
+                <div class="alert alert-danger" role="alert" style="position: relative;">
+                    <%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                    </button>
+                </div>
                 <% } %>
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
+                        <a href="/jenis-kamar" class="btn btn-outline-primary mb-3">KEMBALI</a>
+
                         <form action="/jenis-kamar/update/<%= id_jenis_kamar %>" method="post">
                             <div class="form-group">
-                                <label>Tipe Kamar</label>
+                                <label>Jenis Kamar</label>
                                 <input type="text" class="form-control" name="tipe_kamar" value="<%= tipe_kamar %>"
-                                    placeholder="Masukkan Tipe Kamar">
+                                    placeholder="Masukkan Jenis Kamar">
                             </div>
                             <div class="form-group">
                                 <label>Harga Kamar</label>
                                 <input type="text" class="form-control" name="harga" value="<%= harga %>"
                                     id="hargaInput" placeholder="Masukkan Harga Kamar">
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-primary">UPDATE</button>
                             <button type="reset" class="btn btn-warning">RESET</button>
                         </form>
@@ -31,7 +40,6 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Fungsi untuk memformat nilai harga tanpa desimal dan pemisah ribuan
             function formatCurrency(number) {
                 return new Intl.NumberFormat('id-ID', {
                     style: 'currency',
@@ -41,14 +49,11 @@
                 }).format(number);
             }
 
-            // Mendapatkan elemen input harga
             var hargaInput = document.getElementById('hargaInput');
 
-            // Mendapatkan nilai harga dari elemen input
             var harga = parseInt(hargaInput.value.replace(/[^\d]/g,
-                '')); // Menghilangkan pemisah ribuan dan mengonversi ke integer
+                ''));
 
-            // Memformat nilai harga dan menetapkannya sebagai nilai input
             hargaInput.value = formatCurrency(harga);
         });
     </script>

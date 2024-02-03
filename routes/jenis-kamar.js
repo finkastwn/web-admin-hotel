@@ -60,7 +60,7 @@ router.post('/store', function (req, res, next) {
         errors = true;
 
         // set flash message
-        req.flash('error', "Silahkan Masukkan Konten");
+        req.flash('error', "Silahkan Masukkan Harga Kamar");
         // render to add.ejs with flash message
         res.render('jenis-kamar/create', {
             tipeKamar: tipeKamar,
@@ -150,7 +150,7 @@ router.post('/update/:id_jenis_kamar', function(req, res, next) {
         errors = true;
 
         // set flash message
-        req.flash('error', "Silahkan Masukkan Konten");
+        req.flash('error', "Silahkan Masukkan Harga Kamar");
         // render to edit.ejs with flash message
         res.render('jenis-kamar/edit', {
             id_jenis_kamar:         req.params.id_jenis_kamar,

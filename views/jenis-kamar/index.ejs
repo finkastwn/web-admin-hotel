@@ -7,17 +7,21 @@
             <div class="col-md-12">
 
                 <% if (messages.success) { %>
-                <div class="alert alert-success" role="alert"><%- messages.success %>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="alert alert-success" role="alert" style="position: relative;">
+                    <%- messages.success %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
                     </button>
                 </div>
                 <% } %>
 
                 <% if (messages.error) { %>
-                <div class="alert alert-danger" role="alert"><%- messages.error %>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="alert alert-danger" role="alert" style="position: relative;">
+                    <%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
                     </button>
                 </div>
                 <% } %>
@@ -25,8 +29,9 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <a href="/dashboard" class="btn btn-md btn-primary mb-3">KEMBALI KE DASHBOARD</a>
-                            <a href="jenis-kamar/create" class="btn btn-md btn-success mb-3 ml-auto">TAMBAH JENIS
+                            <a href="/dashboard" class="btn btn-md btn-outline-primary mb-3">KEMBALI KE DASHBOARD</a>
+                            <a href="jenis-kamar/create" class="btn btn-md btn-outline-success mb-3 ml-auto">TAMBAH
+                                JENIS
                                 KAMAR</a>
                         </div>
 
