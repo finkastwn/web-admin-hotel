@@ -38,10 +38,10 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">NO.</th>
+                                    <th style="text-align: center;" scope="col">NO.</th>
                                     <th scope="col">JENIS KAMAR</th>
                                     <th scope="col">HARGA</th>
-                                    <th scope="col">AKSI</th>
+                                    <th style="text-align: center;" scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,9 +54,9 @@
                                     <td class="formattedHarga"><%= data[i].harga%></td>
                                     <td class="text-center">
                                         <a href="/jenis-kamar/edit/<%=data[i].id_jenis_kamar%>"
-                                            class="btn btn-sm btn-primary">EDIT</a>
+                                            class="btn btn-sm btn-outline-primary">EDIT</a>
                                         <a href="#" onclick="confirmDelete('<%=data[i].id_jenis_kamar%>')"
-                                            class="btn btn-sm btn-danger">HAPUS</a>
+                                            class="btn btn-sm btn-outline-danger">HAPUS</a>
                                     </td>
                                 </tr>
                                 <% }
