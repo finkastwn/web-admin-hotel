@@ -1,0 +1,68 @@
+<% include ../layouts/main-layout %>
+
+<body style="background: lightgray">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <% if (messages.error) { %>
+                <div class="alert alert-danger" role="alert" style="position: relative;">
+                    <%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <a href="/tamu" class="btn btn-md btn-outline-primary mb-3">KEMBALI</a>
+
+                        <h3 style="text-align: center;" class="font-weight-bold">TAMBAH DATA TAMU</h3>
+                        <form action="/tamu/store" method="post">
+                            <div class="form-group">
+                                <label>Nama Tamu</label>
+                                <input type="text" class="form-control" name="nama_tamu" value="<%= nama_tamu %>"
+                                    placeholder="Masukkan Nama Tamu">
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Identitas</label>
+                                <br>
+                                <select class="form-select" name="jenis_identitas" id="jenis_identitas">
+                                    <option value="KTP">KTP</option>
+                                    <option value="SIM">SIM</option>
+                                    <option value="KITAS">KITAS</option>
+                                    <option value="PASSPORT">Passport</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Identitas</label>
+                                <input type="text" class="form-control" name="no_identitas" value="<%= no_identitas %>"
+                                    placeholder="Masukkan Nomor Identitas">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Telepon</label>
+                                <input type="text" class="form-control" name="no_hp" value="<%= no_hp %>"
+                                    placeholder="Masukkan Nomor Telepon">
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat">Alamat</label>
+                                <textarea class="form-control" name="alamat" id="alamat"
+                                    placeholder="Masukkan Alamat"><%= alamat %></textarea>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                            <button type="reset" class="btn btn-warning">RESET</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    </script>
+</body>
+
+</html>
