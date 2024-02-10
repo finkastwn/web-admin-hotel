@@ -30,23 +30,16 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <a href="/dashboard" class="btn btn-md btn-outline-primary mb-3">KEMBALI KE DASHBOARD</a>
-                            <a href="tamu/create" class="btn btn-md btn-outline-success mb-3">TAMBAH TAMU</a>
                         </div>
-                        <br>
-                        <div class="d-flex flex-grow-1 justify-content-center">
-                            <input id="searchInput" type="text" class="form-control"
-                                placeholder="Cari nomor identitas atau nama tamu...">
-                            <button style="margin-right: 1%; margin-left: 1%;" class="btn btn-primary"
-                                onclick="searchTamu()">Cari</button>
-                            <a href="/tamu" class="btn btn-warning">Reset</a>
-                        </div>
-                        <br>
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;" scope="col">NO.</th>
-                                    <th scope="col">NO. IDENTITAS</th>
+                                    <th scope="col">NOMOR KAMAR</th>
                                     <th scope="col">NAMA TAMU</th>
+                                    <th scope="col">TANGGAL CHECK-IN</th>
+                                    <th scope="col">TANGGAL CHECK-OUT</th>
                                     <th style="text-align: center;" scope="col">AKSI</th>
                                 </tr>
                             </thead>
@@ -56,15 +49,18 @@
                                     for(var i = 0; i< data.length; i++) {%>
                                 <tr>
                                     <th scope="row" class="text-center"><%= (i+1) %></th>
-                                    <td><%= data[i].no_identitas%></td>
-                                    <td><%= data[i].nama_tamu%></td>
+                                    <td><%= data[i].id_kamar %></td>
+                                    <td><%= data[i].nama_tamu %></td>
+                                    <%
+                                        const checkin = data[i].tanggal_checkin;
+                                        const formatCheckin = checkin.toLocaleDateString('en-GB').replace(/\//g, '-');
+                                        const checkout = data[i].tanggal_checkout;
+                                        const formatCheckout = checkout.toLocaleDateString('en-GB').replace(/\//g, '-');
+                                    %>
+                                    <td><%= formatCheckin %></td>
+                                    <td><%= formatCheckout %></td>
                                     <td class="text-center">
-                                        <a href="/penginapan/check-in/<%=data[i].id_tamu%>"
-                                            class="btn btn-sm btn-outline-success">CHECK-IN</a>
-                                        <a href="/tamu/detail/<%=data[i].id_tamu%>"
-                                            class="btn btn-sm btn-outline-primary">DETAIL</a>
-                                        <a href="#" onclick="confirmDelete('<%=data[i].id_tamu%>')"
-                                            class="btn btn-sm btn-outline-danger">HAPUS</a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">check-out</a>
                                     </td>
                                 </tr>
                                 <% }
@@ -73,7 +69,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <div class="alert alert-danger" role="alert">
-                                            Data Tidak Ditemukan! Silahkan Klik 'Reset' kemudian Tambah tamu.
+                                            Data Tidak Ditemukan !
                                         </div>
                                     </td>
                                 </tr>
@@ -85,19 +81,6 @@
             </div>
         </div>
     </div>
-    <script>
-        function confirmDelete(id_tamu) {
-            if (confirm('Apakah Anda yakin ingin menghapus tamu ini?')) {
-                window.location.href = '/tamu/delete/' + id_tamu;
-            }
-        }
-    </script>
-    <script>
-        function searchTamu() {
-            var keyword = document.getElementById("searchInput").value;
-            window.location.href = "/tamu/search?keyword=" + keyword;
-        }
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

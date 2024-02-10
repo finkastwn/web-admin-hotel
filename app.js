@@ -15,6 +15,7 @@ var jenisKamarRouter = require('./routes/jenis-kamar');
 var kamarRouter = require('./routes/kamar');
 var dashboardRouter = require('./routes/dashboard');
 var tamuRouter = require('./routes/tamu');
+var inapRouter = require('./routes/penginapan');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/jenis-kamar', jenisKamarRouter);
 app.use('/kamar', kamarRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/tamu', tamuRouter);
+app.use('/penginapan', inapRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
