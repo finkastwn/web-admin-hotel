@@ -60,7 +60,8 @@
                                     <td><%= formatCheckin %></td>
                                     <td><%= formatCheckout %></td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-sm btn-outline-danger">check-out</a>
+                                        <a href="#" onclick="confirmDelete('<%=data[i].id_penginapan%>')"
+                                            class="btn btn-sm btn-outline-danger">check-out</a>
                                     </td>
                                 </tr>
                                 <% }
@@ -81,6 +82,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmDelete(id_penginapan) {
+            if (confirm('Apakah Anda yakin pengunjung ini akan check-out?')) {
+                window.location.href = '/penginapan/check-out/' + id_penginapan;
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

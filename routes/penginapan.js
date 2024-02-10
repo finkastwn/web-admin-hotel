@@ -3,7 +3,7 @@ var router = express.Router();
 var connection = require('../library/database');
 
 router.get('/', function (req, res, next) {
-    connection.query(`SELECT p.id_kamar, t.nama_tamu, p.tanggal_checkin, p.tanggal_checkout
+    connection.query(`SELECT p.id_kamar, t.nama_tamu, p.tanggal_checkin, p.tanggal_checkout, id_penginapan
     from penginapan p
     JOIN tamu t
     ON p.id_tamu = t.id_tamu
@@ -118,6 +118,29 @@ router.post('/checked-in/(:id_tamu)', function (req, res, next) {
             }
         })
     }
+})
+
+router.get('/check-out/(:id_penginapan)', function(req, res, next) {
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT * FROM penginapan WHERE id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+        let id_kamar = rows[0].id_kamar;
+
+        connection.query(`UPDATE kamar SET status_kamar = 'ON_CLEANING' WHERE id_kamar = ?`, [id_kamar], function(updateError, result) {
+            if(updateError) {
+                req.flash('error', updateError)
+                res.redirect('/penginapan')
+            } else {
+                connection.query(`UPDATE penginapan SET status_inap = 'CHECKED_OUT' WHERE id_penginapan = ?`, [id_penginapan], function(updateInapErr, result) {
+                    if(updateInapErr) throw updateInapErr;
+                    req.flash('success', 'Pengunjung Berhasil Check-Out!');
+                    res.redirect('/penginapan')
+                })
+            }
+        })
+    })
+    
 })
 
 module.exports = router
