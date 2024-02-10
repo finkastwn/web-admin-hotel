@@ -6,6 +6,7 @@ Features:
 2. CRUD Master Kamar & Status Housekeping
 3. Dashboard page
 4. CRUD Master Tamu
+5. Search Tamu
 
 After clone this project, please run
 
