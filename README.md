@@ -7,6 +7,7 @@ Features:
 3. Dashboard page
 4. CRUD Master Tamu
 5. Search Tamu
+6. Check-in and Check-out
 
 After clone this project, please run
 
