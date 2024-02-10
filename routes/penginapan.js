@@ -7,7 +7,8 @@ router.get('/', function (req, res, next) {
     from penginapan p
     JOIN tamu t
     ON p.id_tamu = t.id_tamu
-    order by p.tanggal_checkin ASC`, function (err, rows) {
+    WHERE p.status_inap = 'CHECKED_IN'
+    order by p.id_kamar asc`, function (err, rows) {
         if (err) throw err;
 
         res.render('penginapan/index', {
@@ -91,7 +92,8 @@ router.post('/checked-in/(:id_tamu)', function (req, res, next) {
             id_tamu: id_tamu,
             id_kamar: id_kamar,
             tanggal_checkin: tanggal_checkin,
-            tanggal_checkout: tanggal_checkout
+            tanggal_checkout: tanggal_checkout,
+            status_inap: 'CHECKED_IN'
         }
 
         connection.query('INSERT INTO penginapan SET ?', formData, function (err, result) {
@@ -110,7 +112,7 @@ router.post('/checked-in/(:id_tamu)', function (req, res, next) {
                         res.redirect('/tamu');
                     } else {
                         req.flash('success', 'Tamu Berhasil Check-In!');
-                        res.redirect('/tamu');
+                        res.redirect('/penginapan');
                     }
                 })
             }
