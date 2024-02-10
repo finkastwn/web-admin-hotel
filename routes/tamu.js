@@ -283,4 +283,18 @@ router.get('/delete/(:id_tamu)', function(req, res, next) {
     })
 })
 
+router.get('/search', function(req, res) {
+    const keyword = req.query.keyword;
+    connection.query('SELECT * FROM tamu WHERE no_identitas LIKE ? OR nama_tamu LIKE ?', [`%${keyword}%`, `%${keyword}%`], function(err, rows) {
+        if (err) {
+            req.flash('error', err);
+            res.redirect('/tamu/index');
+        } else {
+            res.render('tamu/index', {
+                data: rows
+            });
+        }
+    });
+});
+
 module.exports = router

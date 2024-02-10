@@ -30,10 +30,17 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <a href="/dashboard" class="btn btn-md btn-outline-primary mb-3">KEMBALI KE DASHBOARD</a>
-                            <a href="tamu/create" class="btn btn-md btn-outline-success mb-3 ml-auto">TAMBAH
-                                TAMU</a>
+                            <a href="tamu/create" class="btn btn-md btn-outline-success mb-3">TAMBAH TAMU</a>
                         </div>
-
+                        <br>
+                        <div class="d-flex flex-grow-1 justify-content-center">
+                            <input id="searchInput" type="text" class="form-control"
+                                placeholder="Cari nomor identitas atau nama tamu...">
+                            <button style="margin-right: 1%; margin-left: 1%;" class="btn btn-primary"
+                                onclick="searchTamu()">Cari</button>
+                            <a href="/tamu" class="btn btn-warning">Reset</a>
+                        </div>
+                        <br>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -64,7 +71,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <div class="alert alert-danger" role="alert">
-                                            Data Tidak Ditemukan !
+                                            Data Tidak Ditemukan! Silahkan Klik 'Reset' kemudian Tambah tamu.
                                         </div>
                                     </td>
                                 </tr>
@@ -81,6 +88,12 @@
             if (confirm('Apakah Anda yakin ingin menghapus tamu ini?')) {
                 window.location.href = '/tamu/delete/' + id_tamu;
             }
+        }
+    </script>
+    <script>
+        function searchTamu() {
+            var keyword = document.getElementById("searchInput").value;
+            window.location.href = "/tamu/search?keyword=" + keyword;
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
