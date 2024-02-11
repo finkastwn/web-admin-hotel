@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     JOIN tamu t
     ON p.id_tamu = t.id_tamu
     WHERE p.status_inap = 'CHECKED_IN'
-    order by p.id_kamar asc`, function (err, rows) {
+    order by p.tanggal_checkout asc`, function (err, rows) {
         if (err) throw err;
 
         res.render('penginapan/index', {
