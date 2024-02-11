@@ -1,0 +1,78 @@
+<% include ../layouts/main-layout %>
+
+<body style="background: lightgray">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <% if (messages.error) { %>
+                <div class="alert alert-danger" role="alert" style="position: relative;">
+                    <%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <a href="/layanan" class="btn btn-md btn-outline-primary mb-3">KEMBALI</a>
+
+                        <form action="/layanan/update/<%= id_layanan %>" method="post">
+                            <div class="form-group">
+                                <label>Jenis Layanan</label>
+                                <br>
+                                <select class="form-select" name="jenis_layanan" id="jenis_layanan">
+                                    <option value="EXTRA_BED" <%= (jenis_layanan === 'EXTRA_BED') ? 'selected' : '' %>>
+                                        Extra Bed
+                                    </option>
+                                    <option value="FnB" <%= (jenis_layanan === 'FnB') ? 'selected' : '' %>>
+                                        Food and Beverage
+                                    </option>
+                                    <option value="LAUNDRY" <%= (jenis_layanan === 'LAUNDRY') ? 'selected' : '' %>>
+                                        Laundry</option>
+                                    <option value="MINIBAR" <%= (jenis_layanan === 'MINIBAR') ? 'selected' : '' %>>
+                                        Minibar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Item</label>
+                                <input type="text" class="form-control" name="nama_item" value="<%= nama_item %>"
+                                    placeholder="Masukkan Nama Item">
+                            </div>
+                            <div class="form-group">
+                                <label>Harga Item</label>
+                                <input type="text" class="form-control" name="harga_item" value="<%= harga_item %>"
+                                    id="hargaInput" placeholder="Masukkan Harga Item">
+                            </div>
+                            <div class="form-group">
+                                <label>Kuota</label>
+                                <input type="number" min="0" class="form-control" name="kuota" value="<%= kuota %>"
+                                    placeholder="Masukkan Kuota Item">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">UPDATE</button>
+                            <a href="/layanan" class="btn btn-secondary">BATAL</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/autonumeric@4"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new AutoNumeric('#hargaInput', {
+                currencySymbol: 'Rp ',
+                decimalCharacter: ',',
+                digitGroupSeparator: '.',
+                decimalPlaces: 0,
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+
+</html>
