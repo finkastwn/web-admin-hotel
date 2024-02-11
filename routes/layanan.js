@@ -208,11 +208,4 @@ router.get('/delete/(:id_layanan)', function(req, res, next) {
     })
 })
 
-router.get('/pesan-layanan/(:id_penginapan)', function(req, res, next) {
-    let id_penginapan = req.params.id_penginapan;
-    res.render('layanan/pesan-layanan', {
-        id_penginapan: id_penginapan
-    })
-})
-
 module.exports = router;
