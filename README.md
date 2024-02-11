@@ -8,6 +8,7 @@ Features:
 4. CRUD Master Tamu
 5. Search Tamu
 6. Check-in and Check-out
+7. CRUD Layanan (Extra bed, FNB, Minibar, Laundry)
 
 After clone this project, please run
 
