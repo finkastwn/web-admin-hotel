@@ -1,4 +1,5 @@
 <% include ../layouts/main-layout %>
+<% include ../layouts/dropdown-hover %>
 
 <body style="background: lightgray">
 
@@ -60,6 +61,16 @@
                                     <td><%= formatCheckin %></td>
                                     <td><%= formatCheckout %></td>
                                     <td class="text-center">
+                                        <div class="dropdown">
+                                            <button class="dropbtn btn btn-sm btn-outline-primary">Pesan
+                                                Layanan</button>
+                                            <div class="dropdown-content">
+                                                <a href="/layanan/pesan-extra-bed/<%=data[i].id_penginapan%>">Extra
+                                                    Bed</a>
+                                                <a href="#">Link 2</a>
+                                                <a href="#">Link 3</a>
+                                            </div>
+                                        </div>
                                         <a href="#" onclick="confirmDelete('<%=data[i].id_penginapan%>')"
                                             class="btn btn-sm btn-outline-danger">check-out</a>
                                     </td>
@@ -68,7 +79,7 @@
                                     
                                 }else{ %>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="6">
                                         <div class="alert alert-danger" role="alert">
                                             Data Tidak Ditemukan !
                                         </div>

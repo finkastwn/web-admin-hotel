@@ -208,4 +208,59 @@ router.get('/delete/(:id_layanan)', function(req, res, next) {
     })
 })
 
+router.get('/pesan-extra-bed/(:id_penginapan)', function(req, res, next) { 
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT p.id_kamar, t.nama_tamu 
+    FROM penginapan p
+    JOIN tamu t
+    ON p.id_tamu = t.id_tamu
+    WHERE
+    id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+
+        connection.query(`select * from layanan where jenis_layanan = 'EXTRA_BED'`, function(err, layanan) {
+            res.render('layanan/pesan-extra-bed', {
+                id_penginapan: id_penginapan,
+                nama_tamu: rows[0].nama_tamu,
+                id_kamar: rows[0].id_kamar,
+                layanan: layanan,
+                kuota:''
+            })
+        })
+    })
+})
+
+router.post('/pesan/(:id_penginapan)', async(req, res) => {
+    try {
+        let id_penginapan = req.params.id_penginapan;
+        const namaItemArray = req.body.nama_item;
+        const kuotaArray = req.body.kuota;
+        let id_layanan, kuota;
+
+        await connection.beginTransaction();
+
+        if (Array.isArray(namaItemArray)) {
+            for(let i = 0; i < namaItemArray.length; i++){
+                id_layanan = namaItemArray[i];
+                kuota = kuotaArray[i]
+    
+                await connection.query(`INSERT INTO pendapatan_layanan (id_layanan, id_penginapan, jumlah_item) VALUES (?,?,?)`, [id_layanan, id_penginapan, kuota])
+            }
+            
+        } else {
+
+            await connection.query(`INSERT INTO pendapatan_layanan (id_layanan, id_penginapan, jumlah_item) VALUES (?,?,?)`, [namaItemArray, id_penginapan, kuotaArray]);
+
+        }
+
+        await connection.commit();
+
+        req.flash('success', 'Extra Bed Berhasil Dipesan!');
+        res.redirect('/penginapan')
+    } catch (error) {
+        await connection.rollback();
+        req.flash('error', error);
+    }
+})
 module.exports = router;

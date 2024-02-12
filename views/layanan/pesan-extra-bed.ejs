@@ -1,0 +1,106 @@
+<% include ../layouts/main-layout %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <% if (messages.error) { %>
+            <div class="alert alert-danger" role="alert" style="position: relative;">
+                <%- messages.error %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                    style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                    <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                </button>
+            </div>
+            <% } %>
+            <div class="card border-0 shadow rounded">
+                <div class="card-body">
+                    <a href="/penginapan" class="btn btn-md btn-outline-primary mb-3">KEMBALI</a>
+
+                    <h3 style="text-align: center;">Form Pemesanan Extra Bed</h3>
+
+                    <form action="/layanan/pesan/<%= id_penginapan %>" method="post">
+                        <div class="form-group">
+                            <label>Nama Tamu</label>
+                            <input type="text" class="form-control" name="nama_tamu" value="<%= nama_tamu %>" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Kamar</label>
+                            <input type="text" class="form-control" name="id_kamar" value="<%= id_kamar %>" disabled>
+                        </div>
+                        <div id="list-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nama Item</label>
+                                        <select class="form-select" name="nama_item" id="nama_item">
+                                            <option value="">Pilih Item</option>
+                                            <% for (var i = 0; i < layanan.length; i++) { %>
+                                            <option value="<%= layanan[i].id_layanan %>"><%= layanan[i].nama_item %>
+                                            </option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Kuota</label>
+                                        <input type="number" min="0" class="form-control" name="kuota"
+                                            value="<%= kuota %>" placeholder="Masukkan Kuota Item">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-md btn-outline-primary" id="tambahItem">Tambah
+                            Item</button>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#tambahItem').click(function () {
+                                    var newItemHtml = `
+                                    <div class="row item justify-content-center">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama Item</label>
+                                                <select class="form-select" name="nama_item">
+                                                    <option value="">Pilih Item</option>
+                                                    <% for (var i = 0; i < layanan.length; i++) { %>
+                                                    <option value="<%= layanan[i].id_layanan %>"><%= layanan[i].nama_item %></option>
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Kuota</label>
+                                                <input type="number" min="0" class="form-control" name="kuota" placeholder="Masukkan Kuota Item">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1" style="display: flex; align-items: center; margin-top:2%">
+                                            <button type="button" class="btn btn-sm btn-danger hapusItem">Hapus</button>
+                                        </div>
+                                    </div>
+                                        `;
+                                    $('#list-item').append(newItemHtml);
+                                });
+
+                                // Tangani klik tombol "Hapus" untuk item yang ditambahkan
+                                $('#list-item').on('click', '.hapusItem', function () {
+                                    $(this).closest('.item').remove();
+                                });
+                            });
+                        </script>
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                        <button type="reset" class="btn btn-warning">RESET</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</script>
