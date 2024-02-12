@@ -220,12 +220,85 @@ router.get('/pesan-extra-bed/(:id_penginapan)', function(req, res, next) {
         if(err) throw err;
 
         connection.query(`select * from layanan where jenis_layanan = 'EXTRA_BED'`, function(err, layanan) {
-            res.render('layanan/pesan-extra-bed', {
+            res.render('layanan/pesan-layanan', {
                 id_penginapan: id_penginapan,
                 nama_tamu: rows[0].nama_tamu,
                 id_kamar: rows[0].id_kamar,
                 layanan: layanan,
-                kuota:''
+                kuota:'',
+                jenis_layanan: layanan[0].jenis_layanan
+            })
+        })
+    })
+})
+
+router.get('/pesan-laundry/(:id_penginapan)', function(req, res, next) { 
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT p.id_kamar, t.nama_tamu 
+    FROM penginapan p
+    JOIN tamu t
+    ON p.id_tamu = t.id_tamu
+    WHERE
+    id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+
+        connection.query(`select * from layanan where jenis_layanan = 'LAUNDRY'`, function(err, layanan) {
+            res.render('layanan/pesan-layanan', {
+                id_penginapan: id_penginapan,
+                nama_tamu: rows[0].nama_tamu,
+                id_kamar: rows[0].id_kamar,
+                layanan: layanan,
+                kuota:'',
+                jenis_layanan: layanan[0].jenis_layanan
+            })
+        })
+    })
+})
+
+router.get('/pesan-fnb/(:id_penginapan)', function(req, res, next) { 
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT p.id_kamar, t.nama_tamu 
+    FROM penginapan p
+    JOIN tamu t
+    ON p.id_tamu = t.id_tamu
+    WHERE
+    id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+
+        connection.query(`select * from layanan where jenis_layanan = 'FnB'`, function(err, layanan) {
+            res.render('layanan/pesan-layanan', {
+                id_penginapan: id_penginapan,
+                nama_tamu: rows[0].nama_tamu,
+                id_kamar: rows[0].id_kamar,
+                layanan: layanan,
+                kuota:'',
+                jenis_layanan: layanan[0].jenis_layanan
+            })
+        })
+    })
+})
+
+router.get('/pesan-minibar/(:id_penginapan)', function(req, res, next) { 
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT p.id_kamar, t.nama_tamu 
+    FROM penginapan p
+    JOIN tamu t
+    ON p.id_tamu = t.id_tamu
+    WHERE
+    id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+
+        connection.query(`select * from layanan where jenis_layanan = 'MINIBAR'`, function(err, layanan) {
+            res.render('layanan/pesan-layanan', {
+                id_penginapan: id_penginapan,
+                nama_tamu: rows[0].nama_tamu,
+                id_kamar: rows[0].id_kamar,
+                layanan: layanan,
+                kuota:'',
+                jenis_layanan: layanan[0].jenis_layanan
             })
         })
     })
@@ -256,7 +329,7 @@ router.post('/pesan/(:id_penginapan)', async(req, res) => {
 
         await connection.commit();
 
-        req.flash('success', 'Extra Bed Berhasil Dipesan!');
+        req.flash('success', 'Layanan Berhasil Dipesan!');
         res.redirect('/penginapan')
     } catch (error) {
         await connection.rollback();

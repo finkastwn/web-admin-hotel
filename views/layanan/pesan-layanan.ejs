@@ -16,7 +16,26 @@
                 <div class="card-body">
                     <a href="/penginapan" class="btn btn-md btn-outline-primary mb-3">KEMBALI</a>
 
-                    <h3 style="text-align: center;">Form Pemesanan Extra Bed</h3>
+                    <h3 style="text-align: center;">Form Pemesanan
+                        <% 
+                            switch(jenis_layanan) {
+                                case 'EXTRA_BED':
+                                    %> Extra Bed <% 
+                                    break;
+                                case 'FnB':
+                                    %> Food and Beverage <% 
+                                    break;
+                                case 'LAUNDRY':
+                                    %> Laundry <% 
+                                    break;
+                                case 'MINIBAR':
+                                    %> Minibar <% 
+                                    break;
+                                default:
+                                    %> Status Tidak Dikenal <% 
+                            }
+                        %>
+                    </h3>
 
                     <form action="/layanan/pesan/<%= id_penginapan %>" method="post">
                         <div class="form-group">
