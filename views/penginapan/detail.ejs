@@ -1,0 +1,176 @@
+<% include ../layouts/main-layout %>
+
+<body style="background: lightgray">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+
+                <% if (messages.success) { %>
+                <div class="alert alert-success" role="alert" style="position: relative;">
+                    <%- messages.success %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+
+                <% if (messages.error) { %>
+                <div class="alert alert-danger" role="alert" style="position: relative;">
+                    <%- messages.error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="position: absolute; right: 0 ;top: 0; background: none; border: none;">
+                        <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <a href="/penginapan" class="btn btn-md btn-outline-primary mb-3">KEMBALI KE LIST TAMU</a>
+                        </div>
+
+                        <table class="table table-bordered">
+                            <tbody>
+                                <% if(data.length){%>
+                                <tr>
+                                    <th>Nama Tamu</th>
+                                    <td><%= data[0].nama_tamu%></td>
+                                </tr>
+                                <tr>
+                                    <th>Identitas</th>
+                                    <td><%= data[0].jenis_identitas + " - " + data[0].no_identitas%></td>
+                                </tr>
+                                <%
+                                        const checkin = data[0].tanggal_checkin;
+                                        const formatCheckin = checkin.toLocaleDateString('en-GB').replace(/\//g, '-');
+                                        const checkout = data[0].tanggal_checkout;
+                                        const formatCheckout = checkout.toLocaleDateString('en-GB').replace(/\//g, '-');
+                                    %>
+                                <tr>
+                                    <th>Tanggal Check-in</th>
+                                    <td><%= formatCheckin%></td>
+                                </tr>
+                                <tr>
+                                    <th>Tanggal Check-out</th>
+                                    <td><%= formatCheckout%></td>
+                                </tr>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="alert alert-danger" role="alert">
+                                            Data Tidak Ditemukan !
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2%;" class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">LAYANAN TAMBAHAN</h4>
+
+                        <table style="margin-top: 2%;" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;" scope="col">NO.</th>
+                                    <th scope="col">jenis layanan</th>
+                                    <th scope="col">nama item</th>
+                                    <th scope="col">jumlah</th>
+                                    <th scope="col">harga</th>
+                                    <th scope="col">total harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(data.length && data[0].jenis_layanan != null){
+                                    
+                                    for(var i = 0; i< data.length; i++) {%>
+                                <tr>
+                                    <th scope="row" class="text-center"><%= (i+1) %></th>
+                                    <td><% 
+                                        switch(data[i].jenis_layanan) {
+                                            case 'EXTRA_BED':
+                                                %> Extra Bed <% 
+                                                break;
+                                            case 'FnB':
+                                                %> Food and Beverage <% 
+                                                break;
+                                            case 'LAUNDRY':
+                                                %> Laundry <% 
+                                                break;
+                                            case 'MINIBAR':
+                                                %> Minibar <% 
+                                                break;
+                                            default:
+                                                %> Status Tidak Dikenal <% 
+                                        }
+                                        %></td>
+                                    <td><%= data[i].nama_item%></td>
+                                    <td><%= data[i].jumlah_item%></td>
+                                    <td class="formattedHarga"><%= data[i].harga_item%></td>
+                                    <td class="formattedHarga"><%= data[i].total_harga%></td>
+                                </tr>
+                                <% } %>
+                                <tr>
+                                    <td colspan="5">
+                                        <b>Total</b>
+                                    </td>
+                                    <td class="formattedHarga"><%= tagihan[0].total_tagihan%></td>
+                                </tr>
+                                <% } else{ %>
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="alert alert-danger" role="alert">
+                                            Tidak ada layanan tambahan yang dipesan.
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        <a href="#" onclick="confirmDelete('<%=data[0].id_penginapan%>')"
+                            class="btn btn-outline-danger">check-out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(id_penginapan) {
+            if (confirm('Apakah Anda yakin pengunjung ini akan check-out?')) {
+                window.location.href = '/penginapan/check-out/' + id_penginapan;
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function formatCurrency(number) {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                }).format(number);
+            }
+
+            var hargaElements = document.querySelectorAll('.formattedHarga');
+            hargaElements.forEach(function (element) {
+                var harga = parseFloat(element.textContent
+                    .trim());
+                element.textContent = formatCurrency(
+                    harga);
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    </script>
+
+</body>
+
+</html>

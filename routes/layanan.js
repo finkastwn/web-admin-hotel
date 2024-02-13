@@ -330,7 +330,7 @@ router.post('/pesan/(:id_penginapan)', async(req, res) => {
         await connection.commit();
 
         req.flash('success', 'Layanan Berhasil Dipesan!');
-        res.redirect('/penginapan')
+        res.redirect('/penginapan/detail/' + id_penginapan);
     } catch (error) {
         await connection.rollback();
         req.flash('error', error);

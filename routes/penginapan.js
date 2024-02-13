@@ -143,4 +143,49 @@ router.get('/check-out/(:id_penginapan)', function(req, res, next) {
     
 })
 
+router.get('/detail/(:id_penginapan)', function(req, res, next) {
+    let id_penginapan = req.params.id_penginapan;
+
+    connection.query(`SELECT t.nama_tamu, t.jenis_identitas, t.no_identitas, 
+    p.tanggal_checkin, p.tanggal_checkout, p.id_penginapan,
+    l.jenis_layanan, l.nama_item, l.harga_item,
+    pl.jumlah_item, (pl.jumlah_item * l.harga_item) AS total_harga
+    FROM 
+        penginapan p 
+    join 
+        tamu t 
+    on 
+        p.id_tamu = t.id_tamu 
+    left join 
+        pendapatan_layanan pl 
+    on 
+        p.id_penginapan = pl.id_penginapan 
+    left join 
+        layanan l 
+    on 
+        l.id_layanan = pl.id_layanan
+    where 
+        p.id_penginapan = ?`, [id_penginapan], function(err, rows) {
+        if(err) throw err;
+
+        connection.query(`SELECT 
+        SUM(pl.jumlah_item * l.harga_item) AS total_tagihan
+        from 
+            penginapan p 
+        join 
+            tamu t ON p.id_tamu = t.id_tamu 
+        join 
+            pendapatan_layanan pl ON p.id_penginapan = pl.id_penginapan 
+        join 
+            layanan l ON l.id_layanan = pl.id_layanan
+        WHERE 
+        p.id_penginapan = ?`, [id_penginapan], function(err, tagihan) {
+            res.render('penginapan/detail', {
+                data:rows,
+                tagihan: tagihan
+            })
+        })
+    })
+})
+
 module.exports = router
