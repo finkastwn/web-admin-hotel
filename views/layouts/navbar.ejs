@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'dashboard' ? 'active' : '' %>" href="/dashboard">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'jenis-kamar' ? 'active' : '' %>" href="/jenis-kamar">Jenis
+                        Kamar
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'kamar' ? 'active' : '' %>" href="/kamar">
+                        Kamar
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'layanan' ? 'active' : '' %>" href="/layanan">
+                        Layanan Tambahan
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'tamu' ? 'active' : '' %>" href="/tamu">Tamu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'check-in' ? 'active' : '' %>" href="/penginapan">Layanan
+                        Inap</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
