@@ -12,6 +12,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'tamu' ? 'active' : '' %>" href="/tamu">Tamu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= activePage === 'check-in' ? 'active' : '' %>" href="/penginapan">Layanan
+                        Inap</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
                     <a class="nav-link <%= activePage === 'jenis-kamar' ? 'active' : '' %>" href="/jenis-kamar">Jenis
                         Kamar
                         <span class="visually-hidden">(current)</span>
@@ -28,15 +37,6 @@
                         Layanan Tambahan
                         <span class="visually-hidden">(current)</span>
                     </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link <%= activePage === 'tamu' ? 'active' : '' %>" href="/tamu">Tamu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <%= activePage === 'check-in' ? 'active' : '' %>" href="/penginapan">Layanan
-                        Inap</a>
                 </li>
             </ul>
         </div>
